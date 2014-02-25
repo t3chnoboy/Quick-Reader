@@ -40,8 +40,12 @@
 
   insertRedLetter = function(word) {
     var output, position;
-    position = word.length / 2 - 1;
-    return output = word.substr(0, position) + '<span style="color: red">' + word[position] + '</span>' + word.substr(position + 1);
+    if (word.length === 1) {
+      return word;
+    } else {
+      position = ~~(word.length / 2) - 1;
+      return output = word.substr(0, position) + '<span style="color: red">' + word[position] + '</span>' + word.substr(position + 1);
+    }
   };
 
 }).call(this);
