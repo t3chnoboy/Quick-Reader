@@ -24,5 +24,7 @@ switchView = (view)->
     button.style.display = ''
 
 insertRedLetter = (word) ->
-  position = word.length / 2 - 1
-  output = word.substr(0, position) + '<span style="color: red">' + word[position] + '</span>' + word.substr(position + 1)
+  if word.length is 1 then word
+  else
+    position = ~~ (word.length / 2) - 1
+    output = word.substr(0, position) + '<span style="color: red">' + word[position] + '</span>' + word.substr(position + 1)
