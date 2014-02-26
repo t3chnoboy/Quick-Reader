@@ -1,17 +1,7 @@
 wordLabel = document.querySelector 'h1'
 button = document.querySelector 'button'
 textArea = document.querySelector 'textarea'
-
-showText = (text) ->
-  window.setTimeout ->
-    switchView 2
-  , 5000
-  for word in text
-    wordLabel.innerHTML = insertRedLetter word
-
-button.addEventListener 'click', ->
-  switchView 1
-  showText textArea.value.split ' '
+speedLabel = document.querySelector 'input'
 
 switchView = (view)->
   if view is 1
@@ -22,6 +12,25 @@ switchView = (view)->
     wordLabel.style.display = 'none'
     textArea.style.display = ''
     button.style.display = ''
+
+showText = (text, speed) ->
+  index = 0
+  numberOfWords = text.length
+  callback = ->
+    if index is numberOfWords - 1
+      clearInterval timer
+      switchView 2
+    else
+      wordLabel.innerHTML = insertRedLetter text[index]
+      index++
+      return
+  timer = setInterval callback, speed
+
+button.addEventListener 'click', ->
+  switchView 1
+  speed = ~~ 60000 / speedLabel.value
+  text = textArea.value.split ' '
+  showText text, speed
 
 insertRedLetter = (word) ->
   if word.length is 1 then word
